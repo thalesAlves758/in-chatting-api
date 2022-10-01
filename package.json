@@ -1,0 +1,50 @@
+{
+  "name": "in-chatting-api",
+  "version": "1.0.0",
+  "description": "A chat api",
+  "main": "src/server.ts",
+  "scripts": {
+    "dev": "nodemon src/server.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thalesAlves758/in-chatting-api.git"
+  },
+  "keywords": [
+    "API",
+    "Node",
+    "Typescript",
+    "Chat"
+  ],
+  "author": "Thales Alves",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/thalesAlves758/in-chatting-api/issues"
+  },
+  "homepage": "https://github.com/thalesAlves758/in-chatting-api#readme",
+  "devDependencies": {
+    "@types/cors": "^2.8.12",
+    "@types/dotenv": "^8.2.0",
+    "@types/express": "^4.17.14",
+    "@types/joi": "^17.2.3",
+    "@typescript-eslint/eslint-plugin": "^5.38.1",
+    "@typescript-eslint/parser": "^5.38.1",
+    "eslint": "^8.24.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-config-standard": "^17.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-n": "^15.3.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-promise": "^6.0.1",
+    "nodemon": "^2.0.20",
+    "prettier": "^2.7.1",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.8.4"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.1",
+    "joi": "^17.6.2"
+  }
+}
