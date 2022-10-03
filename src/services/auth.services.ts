@@ -1,8 +1,17 @@
 import { User } from '@prisma/client';
-import { conflictError } from '../exceptions/http.exceptions';
+import {
+  conflictError,
+  unauthorizedError,
+} from '../exceptions/http.exceptions';
 import { findByEmail, insert } from '../repositories/user.repository';
-import { SignUpInsertData } from '../types/auth.types';
-import { encryptPassword } from '../utils/bcrypt.utils';
+import {
+  AuthJwtPayload,
+  SignInBody,
+  SignInResponse,
+  SignUpInsertData,
+} from '../types/auth.types';
+import { comparePassword, encryptPassword } from '../utils/bcrypt.utils';
+import { generateToken } from '../utils/jwt.utils';
 
 export async function getUserByEmail(email: string): Promise<User | null> {
   return findByEmail(email);
@@ -18,4 +27,26 @@ export async function registerUser(data: SignUpInsertData): Promise<void> {
   }
 
   await insert({ ...data, password: encryptPassword(password) });
+}
+
+export async function signInUser({
+  email,
+  password,
+}: SignInBody): Promise<SignInResponse> {
+  const user: User | null = await getUserByEmail(email);
+
+  if (!user || !comparePassword(user.password, password)) {
+    throw unauthorizedError('Wrong email or password');
+  }
+
+  const token: string = generateToken<AuthJwtPayload>({ id: user.id });
+
+  return {
+    token,
+    id: user.id,
+    email: user.email,
+    firstName: user.firstName,
+    lastName: user.lastName,
+    photoUrl: user.photoUrl,
+  };
 }
