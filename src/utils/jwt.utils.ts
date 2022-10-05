@@ -10,3 +10,13 @@ export function generateToken<T extends string | object | Buffer>(
     expiresIn: 24 * 60 * 60 * 1000, /* eslint-disable-line */
   });
 }
+
+export function validateToken<T extends string | object | Buffer>(
+  token: string
+): T | null {
+  try {
+    return jwt.verify(token, process.env.JWT_SECRET ?? '') as T;
+  } catch (error) {
+    return null;
+  }
+}
