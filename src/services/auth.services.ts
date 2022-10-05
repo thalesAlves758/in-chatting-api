@@ -3,7 +3,7 @@ import {
   conflictError,
   unauthorizedError,
 } from '../exceptions/http.exceptions';
-import { findByEmail, insert } from '../repositories/user.repository';
+import { findByEmail, findById, insert } from '../repositories/user.repository';
 import {
   AuthJwtPayload,
   SignInBody,
@@ -11,10 +11,14 @@ import {
   SignUpInsertData,
 } from '../types/auth.types';
 import { comparePassword, encryptPassword } from '../utils/bcrypt.utils';
-import { generateToken } from '../utils/jwt.utils';
+import { generateToken, validateToken } from '../utils/jwt.utils';
 
 export async function getUserByEmail(email: string): Promise<User | null> {
   return findByEmail(email);
+}
+
+export async function getUserById(id: number): Promise<User | null> {
+  return findById(id);
 }
 
 export async function registerUser(data: SignUpInsertData): Promise<void> {
@@ -49,4 +53,14 @@ export async function signInUser({
     lastName: user.lastName,
     photoUrl: user.photoUrl,
   };
+}
+
+export async function getUserByToken(token: string): Promise<User | null> {
+  const decoded = validateToken<AuthJwtPayload>(token);
+
+  if (!decoded) {
+    return null;
+  }
+
+  return getUserById(decoded.id);
 }
