@@ -1,6 +1,6 @@
 import { User } from '@prisma/client';
 
-export type SignUpInsertData = Omit<User, 'id'>;
+export type SignUpInsertData = Omit<User, 'id' | 'photoUrl'>;
 
 export type SignUpBody = SignUpInsertData & { confirmPassword: string };
 
