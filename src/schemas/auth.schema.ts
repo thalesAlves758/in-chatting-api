@@ -7,7 +7,6 @@ export const signUpSchema = Joi.object<SignUpBody>({
   lastName: Joi.string().required(),
   password: Joi.string().required(),
   confirmPassword: Joi.valid(Joi.ref('password')).required(),
-  photoUrl: Joi.string().uri().required(),
 });
 
 export const signInSchema = Joi.object<SignInBody>({
