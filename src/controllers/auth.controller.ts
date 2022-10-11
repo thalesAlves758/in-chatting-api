@@ -4,10 +4,9 @@ import { SignInBody, SignUpBody } from '../types/auth.types';
 import { HttpStatus } from '../types/http.types';
 
 export async function signUp(req: Request, res: Response) {
-  const { email, firstName, lastName, password, photoUrl }: SignUpBody =
-    req.body;
+  const { email, firstName, lastName, password }: SignUpBody = req.body;
 
-  await registerUser({ email, firstName, lastName, password, photoUrl });
+  await registerUser({ email, firstName, lastName, password });
 
   res.sendStatus(HttpStatus.CREATED);
 }
