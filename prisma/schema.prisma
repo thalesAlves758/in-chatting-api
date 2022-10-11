@@ -11,20 +11,26 @@ datasource db {
 }
 
 model User {
-  id        Int    @id @default(autoincrement())
-  email     String @unique
-  password  String
-  firstName String
-  lastName  String
-  photoUrl  String @default("https://cdn-icons-png.flaticon.com/512/149/149071.png")
+  id               Int       @id @default(autoincrement())
+  email            String    @unique
+  password         String
+  firstName        String
+  lastName         String
+  photoUrl         String    @default("https://cdn-icons-png.flaticon.com/512/149/149071.png")
+  sentMessages     Message[] @relation("from")
+  receivedMessages Message[] @relation("to")
 
   @@map("users")
 }
 
 model Message {
-  id     Int      @id @default(autoincrement())
-  text   String
-  sentAt DateTime @default(now()) @map("sent_at")
+  id         Int      @id @default(autoincrement())
+  text       String
+  sentAt     DateTime @default(now()) @map("sent_at")
+  from       User     @relation(name: "from", fields: [fromUserId], references: [id])
+  fromUserId Int
+  to         User     @relation(name: "to", fields: [toUserId], references: [id])
+  toUserId   Int
 
   @@map("messages")
 }
