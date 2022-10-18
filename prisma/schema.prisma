@@ -26,7 +26,7 @@ model User {
 model Message {
   id         Int       @id @default(autoincrement())
   text       String
-  sentAt     DateTime  @default(now()) @map("sent_at")
+  sentAt     DateTime  @default(now())
   sawAt      DateTime?
   from       User      @relation(name: "from", fields: [fromUserId], references: [id])
   fromUserId Int
