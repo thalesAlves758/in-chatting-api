@@ -76,6 +76,7 @@ function initIoHandlers(io: Server): void {
       try {
         const messageData: MessageInsertData = {
           ...data,
+          sawAt: null,
           fromUserId: socket.data.id,
         };
 
